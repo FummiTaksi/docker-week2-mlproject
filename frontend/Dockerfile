@@ -4,10 +4,12 @@ RUN mkdir -p /usr/src/app
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 
-RUN npm i
-
-RUN npm run build
-RUN npm install -g serve
+RUN npm i && npm run build && \
+    npm install -g serve && \
+    adduser app && \
+    chown -R app /usr/src/app
+USER app
+WORKDIR app
 
 EXPOSE 3000
 
